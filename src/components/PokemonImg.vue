@@ -1,22 +1,36 @@
 <template >
     <div class="pokemon-container">
-        <img v-if="true" class="ocultar-pokemon"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-            alt="No se puede renderizar">
-        <img v-if="true"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-            alt="No se puede renderizar">
+        <img v-if="!showPokemon" class="ocultar-pokemon" v-bind:src="obtenerImg" alt="No se puede renderizar">
+        <img v-if="true" v-bind:src="obtenerImg" alt="No se puede renderizar">
+
     </div>
 </template>
 <script>
+
 export default {
     data() {
         return {
-            idPokemon: 1,
-            mostrarPokemon: true,
+            
+        }
+    },
+    props: {
+        idPokemon: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        showPokemon: {
+            type: Boolean,
+            required: true,
+            default: false
+        }
+    },
+    computed: {
+        /* se declara como metodo pero se usa como atributo**/
+        obtenerImg() {
+            return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/" + this.idPokemon + ".svg"
         }
     }
-
 }
 </script>
 <style >
@@ -31,5 +45,4 @@ img {
     /**right: 32%;*/
     -webkit-user-drag: none;
 }
-
 </style>

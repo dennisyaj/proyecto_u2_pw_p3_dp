@@ -26,6 +26,9 @@ li {
     margin-top: 10px;
     cursor: pointer;
 }
+li:hover{
+    background-color: #368056;
+}
 
 .options-container {
     justify-content: center;
