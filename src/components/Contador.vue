@@ -1,6 +1,6 @@
 <template>
     <h2>Contador</h2>
-    <p>10</p>
+    <p>100</p>
 </template>
 
 <script>
