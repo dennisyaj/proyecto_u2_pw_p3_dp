@@ -2,7 +2,6 @@
     <div class="pokemon-container">
         <img v-if="!showPokemon" class="ocultar-pokemon" v-bind:src="obtenerImg" alt="No se puede renderizar">
         <img v-if="true" v-bind:src="obtenerImg" alt="No se puede renderizar">
-
     </div>
 </template>
 <script>
