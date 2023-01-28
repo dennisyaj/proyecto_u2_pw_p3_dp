@@ -31,7 +31,7 @@ const obtenerVectorNombres = async ([p1, p2, p3, p4] = []) => {
     const vectNombres = [
         {
             nombre: nombrep1,
-            id: p2
+            id: p1
         },
         {
             nombre: nombrep2,

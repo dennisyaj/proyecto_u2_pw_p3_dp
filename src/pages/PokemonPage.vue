@@ -1,9 +1,15 @@
 <template >
     <h1 v-if="!pokemonCorrecto">Espere por favor....</h1>
-    <div v-if="pokemonCorrecto">
-        <h1>Cual es el Pokemon?</h1>
+    <div v-else>
+        <h1>¿Cual es el Pokemon?</h1>
         <PokemonImg :idPokemon="pokemonCorrecto.id" :showPokemon="mostrarPokemon"></PokemonImg>
-        <PokemonOpts :pokemons="pokemonArr"></PokemonOpts>
+        <!-- $event es el segundo dato que se envia  ctrl k + u-->
+        <PokemonOpts v-if="!mensaje" :pokemons="pokemonArr" v-on:selectionPokemon="validarRespuesta($event)">
+        </PokemonOpts>
+    </div>
+    <div v-if="mensaje">
+        <h1>{{ mensaje }}</h1>
+        <button v-on:click="limpiar()">Reiniciar</button>
     </div>
 </template>
 <script>
@@ -15,7 +21,8 @@ export default {
         return {
             pokemonArr: [],
             pokemonCorrecto: null,
-            mostrarPokemon: false
+            mostrarPokemon: false,
+            mensaje: null
         }
     },
     components: {
@@ -27,18 +34,34 @@ export default {
     },
     methods: {
         async cargaPokemonInicial() {
-            console.log("mounted")
             const vect = await obtenerPokemonsFachada()
-            console.log("desde pagina principal")
-            console.log(vect)
-
             this.pokemonArr = vect
             const numeroAl = Math.floor(Math.random() * 4)
-            console.log(numeroAl)
             this.pokemonCorrecto = this.pokemonArr[numeroAl]
+        },
+        validarRespuesta(pokemonSeleccionadoHijo) {
+            console.log("prueba evento");
+            console.log(pokemonSeleccionadoHijo)
+            this.mostrarPokemon = true
+            const idSeleccionado = pokemonSeleccionadoHijo.idPokemon
+            console.log(this.pokemonCorrecto.id);
+            console.log(idSeleccionado);
+            if (idSeleccionado == this.pokemonCorrecto.id) {
+                console.log("Correcto");
+                this.mensaje = "Correcto"
+            } else {
+                this.mensaje = "Incorrecto"
+                console.log("Incorrecto");
+            }
+
+        },
+        limpiar() {
+            this.cargaPokemonInicial()
+            this.mensaje = null
 
         }
     },
+
 }
 </script>
 <style >
